@@ -1,6 +1,7 @@
 package br.com.news.service;
 
 import br.com.news.domain.News;
+import br.com.news.exception.NotFoundException;
 import br.com.news.repository.NewsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,7 @@ public class NewsService {
 
     public News findById(Long id){
         Optional<News> result = newsRepository.findById(id);
-        return result.get();
+        return result.orElseThrow(() -> new NotFoundException("There no news with id " + id));
     }
 
     public List<News> listAll(){

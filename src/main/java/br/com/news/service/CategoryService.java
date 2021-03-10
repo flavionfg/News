@@ -1,6 +1,7 @@
 package br.com.news.service;
 
 import br.com.news.domain.Category;
+import br.com.news.exception.NotFoundException;
 import br.com.news.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,7 @@ public class CategoryService {
 
     public Category findById(Long id){
         Optional<Category> result = categoryRepository.findById(id);
-        return result.get();
+        return result.orElseThrow(() -> new NotFoundException("There are not category with id " + id));
     }
 
     public List<Category> listAll(){

@@ -32,7 +32,7 @@ public class CategoryResorce {
         return ResponseEntity.ok(categories);
     }
 
-    @PostMapping("/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Category> update(@PathVariable(name = "id") Long id, @RequestBody Category category){
         category.setId(id);
         Category categoryUpdated = categoryService.update(category);
