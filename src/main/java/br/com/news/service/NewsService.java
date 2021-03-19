@@ -1,5 +1,7 @@
 package br.com.news.service;
 
+import br.com.news.consumer.dto.Message;
+import br.com.news.domain.Category;
 import br.com.news.domain.News;
 import br.com.news.exception.NotFoundException;
 import br.com.news.repository.NewsRepository;
@@ -13,6 +15,8 @@ import java.util.Optional;
 public class NewsService {
 
     @Autowired NewsRepository newsRepository;
+
+    @Autowired CategoryService categoryService;
 
     public News save(News news){
         news.setCreatedDate(new Date());
@@ -40,4 +44,11 @@ public class NewsService {
        newsRepository.delete(newsDeleted);
     }
 
+    public News transformToNews(Message message){
+
+        Category category = categoryService.findById(message.getCategory());
+        News news = new News(null,message.getTitle(),message.getDescription(),new Date(),category);
+
+       return news;
+    }
 }

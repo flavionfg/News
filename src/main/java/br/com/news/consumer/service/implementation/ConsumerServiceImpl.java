@@ -2,6 +2,7 @@ package br.com.news.consumer.service.implementation;
 
 import br.com.news.consumer.dto.Message;
 import br.com.news.consumer.service.ConsumerService;
+import br.com.news.domain.News;
 import br.com.news.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ public class ConsumerServiceImpl implements ConsumerService<Message>{
 
     @Override
     public void action(Message message){
-        System.out.println("Mensagem consumida!");
+        News news = newsService.transformToNews(message);
+        newsService.save(news);
     }
 }
